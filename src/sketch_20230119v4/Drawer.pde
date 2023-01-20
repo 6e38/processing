@@ -24,8 +24,6 @@ void draw(PGraphics g, Orbit o) {
     point = p;
   }
 
-  //System.out.println("from " + point + " to " + p);
-
   while (isLess(point, p, min)) {
     step += step;
     p = get(o, time, step);
@@ -35,33 +33,7 @@ void draw(PGraphics g, Orbit o) {
     p = get(o, time, step);
   }
 
-  // Pretty good for dots
-  //while (isLess(point, p, 4.0)) {
-  //  step += step;
-  //  p = get(o, time, step);
-  //}
-  //while (!isLess(point, p, 6.0)) {
-  //  step = step / 2.0;
-  //  p = get(o, time, step);
-  //}
-
-  //if (isLess(point, p, 4.0)) {
-  //  while (isLess(point, p, 4.0)) {
-  //    step += step;
-  //    p = get(o, time, step);
-  //  }
-  //} else if (!isLess(point, p, 6.0)) {
-  //  while (!isLess(point, p, 6.0)) {
-  //    step = step / 2.0;
-  //    p = get(o, time, step);
-  //  }
-  //}
-
-  //noStroke();
-  //fill(0, 0, 0, 0.5);
-  //ellipse(p.x, p.y, 8, 8);
-  
-  g.strokeWeight(5);
+  g.strokeWeight(3);
   g.stroke(0, 0, 0.9);
   g.noFill();
   g.line(point.x, point.y, p.x, p.y);
