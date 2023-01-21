@@ -1,21 +1,23 @@
 
+Rocker rocker;
+
 int Frames = 0;
 int iterations = 10;
 float Rate = 30;
-boolean Capture = false;
+boolean Capture = true;
 
-Orbit base;
+ArrayList<Drawer> drawers = new ArrayList<>();
 PGraphics g;
 
 void setup() {
   size(1080, 1920);
   frameRate(Rate);
-
-  base = new Orbit(250 * 0.75, (float)Math.PI / 1.0);
-  Orbit o1 = new Orbit(247 * 0.75, -(float)Math.PI / (96.0 / 53.0));
-  Orbit o2 = new Orbit(200 * 0.75, (float)Math.PI / 3.2);
-  o1.add(o2);
-  base.add(o1);
+  
+  rocker = new Rocker("6e38-rounded-border.png", 100, 100, 150, 150);
+  
+  for (int i = 0; i < 10; i++) {
+    drawers.add(new Drawer(new Orbit(900.0, 96.0, 0, new Orbit((500 + i * 25), -60, 0, null))));
+  }
 
   colorMode(HSB, 1);
 
@@ -35,15 +37,20 @@ void draw() {
     strokeWeight(8);
     rect(0, 0, width, height);
   }
+  
+  float t = (1.0 / Rate) * Frames;
 
   g.beginDraw();
   g.translate(width / 2.0, height / 2.0);
 
   for (int i = 0; i < iterations; i++) {
-    draw(g, base);
+    for (Drawer d : drawers) {
+      d.draw(g);
+    }
   }
   g.endDraw();
   image(g, 0, 0);
+  rocker.draw(t);
 
   if (Capture) {
     saveFrame("frame-#####.tif");
@@ -56,7 +63,17 @@ void draw() {
   text(String.format("%05d", Frames), width, 50);
 
   Frames++;
-  if (Frames >= 1000) {
+  if (Capture && Frames >= 2000) {
     noLoop();
+  }
+}
+
+void keyPressed() {
+  if (key == ' ') {
+    noLoop();
+  } else if (key == 'c') {
+    loop();
+  } else if (key == 'q') {
+    exit();
   }
 }

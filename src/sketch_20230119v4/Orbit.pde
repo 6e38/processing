@@ -9,7 +9,7 @@ class Point {
   }
   
   String toString() {
-    return String.format("(%.3f,%.3f)", x, y);
+    return String.format("(%4.3f,%4.3f)", x, y);
   }
 }
 
@@ -19,15 +19,13 @@ class Orbit {
   float rate;
   Orbit child = null;
   
-  Orbit(float radius, float rate) {
+  Orbit(float radius, float rate, float angle, Orbit child) {
     this.radius = radius;
     this.rate = rate;
-  }
-  
-  void add(Orbit child) {
+    this.angle = angle;
     this.child = child;
   }
-
+  
   void update(float time) {
     angle = time * rate;
     if (child != null) {
