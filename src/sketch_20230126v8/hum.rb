@@ -1,0 +1,1 @@
+sample :ambi_choir, decay: 8, rate: 0.2
